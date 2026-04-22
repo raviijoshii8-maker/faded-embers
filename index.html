@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>FADED EMBERS | Nomad Relics · Dust & Memory</title>
+  <!-- Fonts: Worn elegance + sans grit -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0e0c0a;
+      --surface: #171411;
+      --surface-elevated: #221e1a;
+      --text: #ede6dd;
+      --text-soft: #b7a992;
+      --text-muted: #5a4d3e;
+      --accent: #b87c4f;
+      --accent-glow: #d99e6f;
+      --accent-deep: #8b5a36;
+      --accent-subtle: #2f241d;
+      --border-light: #3e3228;
+      --shadow-sm: 0 15px 30px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.8);
+      --glow-dust: 0 0 18px rgba(184, 124, 79, 0.4);
+      --transition: 0.35s ease-out;
+    }
+
+    [data-theme="light"] {
+      --bg: #f7f2ea;
+      --surface: #ffffff;
+      --surface-elevated: #fffbf5;
+      --text: #2f2a24;
+      --text-soft: #9e8976;
+      --text-muted: #cdbcab;
+      --accent: #b87c4f;
+      --accent-glow: #cf9468;
+      --accent-deep: #9b623b;
+      --accent-subtle: #f5ede5;
+      --border-light: #e6dbcf;
+      --shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.05);
+      --glow-dust: 0 0 12px rgba(184, 124, 79, 0.2);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+    /* Header - nomadic weathered */
+    .faded-header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(14, 12, 10, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--accent);
+      transition: var(--transition);
+    }
+    [data-theme="light"] .faded-header {
+      background: rgba(247, 242, 234, 0.92);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.8rem 2.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, var(--accent-glow) 20%, var(--accent) 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 3px;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent-glow); letter-spacing: 3.5px; }
+
+    .utility-actions {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    #themeToggle {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: 0.2s;
+    }
+    .cart-count {
+      background: var(--accent);
+      color: #0e0c0a;
+      font-size: 0.6rem;
+      font-weight: 800;
+      border-radius: 20px;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -8px;
+      right: -14px;
+    }
+
+    /* Hero — nomadic horizons */
+    .hero-faded {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: 50% 40%;
+    }
+    .hero-faded::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 40%, rgba(14,12,10,0.7) 0%, rgba(0,0,0,0.55) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      padding: 0 7%;
+    }
+    .hero-sub {
+      font-size: 0.65rem;
+      letter-spacing: 9px;
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+      color: var(--accent-glow);
+    }
+    .hero-main-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 7.5vw, 6rem);
+      font-weight: 500;
+      line-height: 1.08;
+      margin-bottom: 1rem;
+      color: #fff3e6;
+      font-style: italic;
+    }
+    .hero-tagline {
+      font-size: 0.75rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(3px);
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border: none;
+      padding: 0.9rem 2.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-block;
+      color: #0e0c0a;
+      clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+    }
+    .btn-primary:hover {
+      background: var(--accent-glow);
+      transform: translateY(-3px);
+      box-shadow: var(--glow-dust);
+    }
+
+    .collection-header {
+      max-width: 1400px;
+      margin: 5rem auto 1.2rem auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 0.8rem;
+    }
+    .collection-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--text), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Product Grid - Tattered Relic Style */
+    .relic-grid {
+      max-width: 1400px;
+      margin: 2rem auto 6rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem 1.8rem;
+    }
+
+    .relic-card {
+      background: var(--surface);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 94% 100%, 0% 100%);
+      overflow: hidden;
+    }
+    .relic-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: var(--glow-dust);
+    }
+    .card-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #1f1b17;
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: sepia(0.1) contrast(1.03);
+    }
+    .relic-card:hover .card-media img { transform: scale(1.04); filter: sepia(0); }
+    .dust-add {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, #000000bb, transparent);
+      padding: 1rem;
+      opacity: 0;
+      transition: 0.25s;
+      text-align: center;
+    }
+    .relic-card:hover .dust-add { opacity: 1; }
+    .add-btn {
+      background: var(--accent);
+      border: none;
+      width: 80%;
+      padding: 0.65rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+      transition: 0.2s;
+      color: #0e0c0a;
+    }
+    .product-meta {
+      padding: 1rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-name h4 {
+      font-size: 0.55rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .product-name h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+    .price-wrap .new-price { font-weight: 700; font-size: 1rem; color: var(--accent-glow); }
+    .price-wrap .old-price { font-size: 0.65rem; text-decoration: line-through; color: var(--text-muted); margin-left: 5px; }
+
+    /* Cart Sidebar - Dust & memory */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(12px);
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .cart-overlay.active { visibility: visible; opacity: 1; }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 460px;
+      height: 100vh;
+      background: var(--surface);
+      border-left: 2px solid var(--accent);
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-overlay.active .cart-drawer { transform: translateX(0); }
+    .cart-head {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+    }
+    .cart-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; background: linear-gradient(135deg, var(--accent-glow), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .cart-items-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cart-item-row {
+      display: flex;
+      gap: 0.9rem;
+      padding: 0.7rem;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-light);
+      clip-path: polygon(0% 0%, 100% 0%, 98% 100%, 2% 100%);
+      position: relative;
+    }
+    .cart-item-img {
+      width: 65px;
+      height: 80px;
+      object-fit: cover;
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 0.85rem; }
+    .cart-item-price { color: var(--accent-glow); font-size: 0.75rem; font-weight: 600; }
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .qty-btn {
+      background: var(--accent-subtle);
+      border: none;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .remove-item-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .cart-bottom {
+      padding: 1.5rem;
+      border-top: 1px solid var(--accent);
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .checkout-action {
+      width: 100%;
+      background: var(--accent);
+      border: none;
+      padding: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+    }
+    .empty-msg {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      background: var(--surface-elevated);
+      margin-top: 2rem;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--accent);
+      text-align: center;
+    }
+    .footer-icon {
+      font-size: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Modal - drifting embers */
+    .modal-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 2100;
+      background: rgba(0, 0, 0, 0.97);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+    .faded-modal {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      max-width: 460px;
+      width: 90%;
+      padding: 2.2rem;
+      text-align: center;
+      clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 94% 100%, 0% 100%);
+      box-shadow: 0 0 35px rgba(184,124,79,0.5);
+    }
+    .modal-icon-badge {
+      font-size: 2.6rem;
+      margin-bottom: 0.8rem;
+      color: var(--accent-glow);
+    }
+    .faded-modal h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.3rem;
+      font-weight: 500;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--accent);
+      padding: 0.7rem 1.6rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      margin-left: 0.6rem;
+      clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+    }
+    .fade-out { opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    @media (max-width: 700px) {
+      .nav-container { padding: 0.7rem 1rem; }
+      .relic-grid { gap: 1.2rem; padding: 0 1rem; }
+    }
+  </style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SBJZ7C7VV0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SBJZ7C7VV0');
+</script>
+  
+</head>
+<body>
+
+<!-- ENTRY MODAL: FADED EMBERS -->
+<div id="entryModal" class="modal-layer">
+  <div class="faded-modal">
+    <div class="modal-icon-badge"><i class="fa-regular fa-compass"></i></div>
+    <h2>FADED EMBERS</h2>
+    <p style="color: var(--text-soft); margin: 0.8rem 0 1.4rem;">Wandering relics. Dust-drenched silhouettes. Wear the journey.</p>
+    <div style="display: flex; gap: 0.8rem; justify-content: center;">
+      <button id="enterBtn" class="btn-primary" style="padding: 0.7rem 1.8rem;">ROAM THE DUST</button>
+      <button id="laterBtn" class="btn-secondary">STRAY LATER</button>
+    </div>
+    <button id="closeModalBtn" style="position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer;">✕</button>
+  </div>
+</div>
+
+<header class="faded-header">
+  <div class="nav-container">
+    <div class="brand">FADED EMBERS</div>
+    <nav class="nav-links">
+      <a href="#shop">RELIC</a>
+      <a href="#shop">NOMAD</a>
+      <a href="#shop">DUST</a>
+      <a href="#">CHRONICLES</a>
+    </nav>
+    <div class="utility-actions">
+      <button id="themeToggle">🌙</button>
+      <div class="cart-icon" id="cartIcon">
+        <i class="fa-regular fa-heart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero-faded">
+    <div class="hero-content">
+      <div class="hero-sub">SS27 · WANDERLUST COLLECTION</div>
+      <h1 class="hero-main-title">Faded Embers</h1>
+      <div class="hero-tagline">✦ Limited run — first flame discount 20% off ✦</div>
+      <a href="#shop" class="btn-primary">UNEARTH RELICS →</a>
+    </div>
+  </section>
+
+  <div class="collection-header" id="shop">
+    <h2>⟡ Dust Archive Vol. II ⟡</h2>
+    <p>14 nomadic pieces · weathered & reimagined</p>
+  </div>
+
+  <div class="relic-grid" id="productGrid"></div>
+</main>
+
+<footer>
+  <div class="footer-icon">FADED EMBERS</div>
+  <p style="font-size: 0.6rem; letter-spacing: 3px; margin-top: 1rem; color: var(--text-muted);">NOMADIC RELICS · ATACAMA · GOBI · SAHARA</p>
+  <p style="font-size: 0.55rem; margin-top: 1rem;">© 2026 — wander & endure</p>
+</footer>
+
+<div id="cartOverlay" class="cart-overlay">
+  <div class="cart-drawer">
+    <div class="cart-head">
+      <h3>Dust Cart</h3>
+      <button class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items-list" id="cartItemsContainer">
+      <div class="empty-msg">🌀 no relics yet. add wanderlust.</div>
+    </div>
+    <div class="cart-bottom" id="cartFooter" style="display: none;">
+      <div class="total-row"><span>total ember</span><span id="cartTotalPrice">₹0</span></div>
+      <button class="checkout-action" id="checkoutBtn">→ secure passage ←</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // FADED EMBERS COLLECTION — nomadic, dusty, relic-driven
+  const products = [
+    { id: 1, name: "Dune Walker Jacket", category: "OUTER SHELL", original: 13499, discountPrice: 10799, img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1974&auto=format&fit=crop", alt: "dune jacket" },
+    { id: 2, name: "Nomad Cargo Pants", category: "BOTTOMS", original: 7899, discountPrice: 6319, img: "https://plus.unsplash.com/premium_photo-1674828601362-afb73c907ebe?q=80&w=753&auto=format&fit=crop", alt: "nomad pants" },
+    { id: 3, name: "Dust Haze Hoodie", category: "LAYER", original: 5899, discountPrice: 4719, img: "https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=1974&auto=format&fit=crop", alt: "dust hoodie" },
+    { id: 4, name: "Scorched Mesa Vest", category: "TACTICAL", original: 9499, discountPrice: 7599, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop", alt: "mesa vest" },
+    { id: 5, name: "Ember Fade Sweater", category: "KNIT", original: 7199, discountPrice: 5759, img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=764&auto=format&fit=crop", alt: "ember sweater" },
+    { id: 6, name: "Wasteland Strap Vest", category: "GEAR", original: 8299, discountPrice: 6639, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop", alt: "strap vest" },
+    { id: 7, name: "Canyon Drift Trousers", category: "BOTTOMS", original: 7499, discountPrice: 5999, img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop", alt: "drift trousers" },
+    { id: 8, name: "Golden Ruin Parka", category: "OUTER", original: 17999, discountPrice: 14399, img: "https://plus.unsplash.com/premium_photo-1697183202151-61c617d21969?q=80&w=687&auto=format&fit=crop", alt: "ruin parka" },
+    { id: 9, name: "Relic Graphic Tee", category: "TOPS", original: 3699, discountPrice: 2959, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1480&auto=format&fit=crop", alt: "relic tee" },
+    { id: 10, name: "Dust Storm Base", category: "BASELAYER", original: 4299, discountPrice: 3439, img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=688&auto=format&fit=crop", alt: "dust base" },
+    { id: 11, name: "Ash Phantom Jacket", category: "OUTER", original: 19999, discountPrice: 15999, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop", alt: "phantom jacket" },
+    { id: 12, name: "Clay Relic Beanie", category: "ACCESSORY", original: 2799, discountPrice: 2239, img: "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=687&auto=format&fit=crop", alt: "clay beanie" },
+    { id: 13, name: "Sand Scar Gloves", category: "GLOVES", original: 4899, discountPrice: 3919, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop", alt: "sand gloves" },
+    { id: 14, name: "Nomad Flask Pouch", category: "GEAR", original: 3999, discountPrice: 3199, img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop", alt: "flask pouch" }
+  ];
+
+  let cart = [];
+
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartIconEl = document.getElementById('cartIcon');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const cartItemsContainer = document.getElementById('cartItemsContainer');
+  const cartFooterDiv = document.getElementById('cartFooter');
+  const cartTotalSpan = document.getElementById('cartTotalPrice');
+  const cartCountSpan = document.getElementById('cartCount');
+
+  function saveCart() { localStorage.setItem('fadedEmbersCart', JSON.stringify(cart)); }
+  function loadCart() { const saved = localStorage.getItem('fadedEmbersCart'); if(saved) { cart = JSON.parse(saved); renderCartUI(); updateCartCount(); } }
+
+  function updateCartCount() { const total = cart.reduce((sum, i) => sum + i.quantity, 0); cartCountSpan.innerText = total; }
+
+  function renderCartUI() {
+    if (!cartItemsContainer) return;
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<div class="empty-msg">⟡ no embers yet. add wanderlust.</div>';
+      cartFooterDiv.style.display = 'none';
+      updateCartCount(); saveCart(); return;
+    }
+    cartFooterDiv.style.display = 'block';
+    let html = '', total = 0;
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      html += `
+        <div class="cart-item-row" data-id="${item.id}">
+          <img class="cart-item-img" src="${item.img}" alt="${item.name}">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</div>
+            <div class="cart-qty">
+              <button class="qty-btn dec-qty" data-id="${item.id}">−</button>
+              <span>${item.quantity}</span>
+              <button class="qty-btn inc-qty" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <button class="remove-item-btn" data-id="${item.id}"><i class="fa-regular fa-trash-alt"></i></button>
+        </div>
+      `;
+    });
+    cartItemsContainer.innerHTML = html;
+    cartTotalSpan.innerText = `₹${total.toLocaleString('en-IN')}`;
+    document.querySelectorAll('.dec-qty').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); updateQuantity(id, -1); }));
+    document.querySelectorAll('.inc-qty').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); updateQuantity(id, 1); }));
+    document.querySelectorAll('.remove-item-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); removeFromCart(id); }));
+    updateCartCount(); saveCart();
+  }
+
+  function updateQuantity(id, delta) {
+    const idx = cart.findIndex(i => i.id === id);
+    if (idx !== -1) {
+      const newQty = cart[idx].quantity + delta;
+      if (newQty <= 0) cart.splice(idx, 1);
+      else cart[idx].quantity = newQty;
+      renderCartUI();
+    }
+  }
+  function removeFromCart(id) { cart = cart.filter(i => i.id !== id); renderCartUI(); }
+
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    const existing = cart.find(i => i.id === productId);
+    if (existing) existing.quantity += 1;
+    else cart.push({ id: product.id, name: product.name, price: product.discountPrice, quantity: 1, img: product.img });
+    renderCartUI();
+    updateCartCount();
+    const btn = document.querySelector(`.add-btn-${productId}`);
+    if (btn) { const originalText = btn.innerText; btn.innerText = "✓ ADDED"; setTimeout(() => btn.innerText = originalText, 700); }
+    cartOverlay.classList.add('active');
+  }
+
+  function renderProducts() {
+    const container = document.getElementById('productGrid');
+    if (!container) return;
+    container.innerHTML = '';
+    products.forEach(prod => {
+      const discountPercent = Math.round(((prod.original - prod.discountPrice) / prod.original) * 100);
+      const card = document.createElement('div'); card.className = 'relic-card';
+      card.innerHTML = `
+        <div class="card-media">
+          <img src="${prod.img}" alt="${prod.alt || prod.name}" loading="lazy">
+          <div class="dust-add"><button class="add-btn add-btn-${prod.id}" data-id="${prod.id}">⟡ ADD TO JOURNEY</button></div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name"><h4>${prod.category}</h4><h3>${prod.name}</h3></div>
+          <div class="price-wrap"><span class="new-price">₹${prod.discountPrice.toLocaleString('en-IN')}</span><span class="old-price">₹${prod.original.toLocaleString('en-IN')}</span><div style="font-size:0.55rem; color:var(--accent); text-align:right;">-${discountPercent}%</div></div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+    document.querySelectorAll('.add-btn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); addToCart(parseInt(btn.dataset.id)); }));
+  }
+
+  // Theme
+  function initTheme() { const stored = localStorage.getItem('fadedTheme'); const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches; let theme = stored || (systemDark ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', theme); const toggle = document.getElementById('themeToggle'); if(toggle) toggle.textContent = theme === 'dark' ? '☀️' : '🌙'; }
+  function toggleTheme() { const curr = document.getAttribute('data-theme'); const next = curr === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); localStorage.setItem('fadedTheme', next); const toggle = document.getElementById('themeToggle'); if(toggle) toggle.textContent = next === 'dark' ? '☀️' : '🌙'; }
+
+  // Modal
+  const modalDiv = document.getElementById('entryModal'), enter = document.getElementById('enterBtn'), later = document.getElementById('laterBtn'), closeX = document.getElementById('closeModalBtn');
+  function closeModalFunc() { if(modalDiv){ modalDiv.classList.add('fade-out'); setTimeout(()=>modalDiv.style.display='none', 220); } }
+  if(enter) enter.addEventListener('click', closeModalFunc);
+  if(later) later.addEventListener('click', closeModalFunc);
+  if(closeX) closeX.addEventListener('click', closeModalFunc);
+  if(modalDiv) modalDiv.addEventListener('click',(e)=>{ if(e.target===modalDiv) closeModalFunc(); });
+
+  // Cart Events
+  if(cartIconEl) cartIconEl.addEventListener('click',()=>cartOverlay.classList.add('active'));
+  if(closeCartBtn) closeCartBtn.addEventListener('click',()=>cartOverlay.classList.remove('active'));
+  if(cartOverlay) cartOverlay.addEventListener('click',(e)=>{ if(e.target===cartOverlay) cartOverlay.classList.remove('active'); });
+  document.getElementById('checkoutBtn')?.addEventListener('click',()=>{ alert('⟡ FADED EMBERS: Your relics will arrive with a dust-stained map. Thank you ⟡'); cart = []; renderCartUI(); cartOverlay.classList.remove('active'); });
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{ anchor.addEventListener('click',function(e){ const href=this.getAttribute('href'); if(href && href !== '#'){ const el=document.querySelector(href); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); } } }); });
+
+  renderProducts(); initTheme(); loadCart(); document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+</script>
+</body>
+</html>
